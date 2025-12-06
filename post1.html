@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducción a los Grafos - Blog Técnico</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="posts.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>📊 Grafos</h1>
+                <p class="subtitle">Blog Técnico sobre Estructura de Datos</p>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index.html" class="nav-link">← Volver al Inicio</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido del Post -->
+    <article class="post-content">
+        <div class="container">
+            <div class="post-header-full">
+                <h1>Introducción a los Grafos: Nodos, Aristas y Tipos</h1>
+                <div class="post-info">
+                    <span class="date">📅 Diciembre 2025</span>
+                    <span class="author">✍️ Blog Técnico</span>
+                    <span class="read-time">⏱️ 8 minutos</span>
+                </div>
+            </div>
+
+            <!-- Tabla de Contenidos -->
+            <div class="table-of-contents">
+                <h3>Tabla de Contenidos</h3>
+                <ul>
+                    <li><a href="#que-es">¿Qué es un Grafo?</a></li>
+                    <li><a href="#conceptos">Conceptos Clave</a></li>
+                    <li><a href="#tipos">Tipos de Grafos</a></li>
+                    <li><a href="#ejemplo">Ejemplo Visual</a></li>
+                    <li><a href="#aplicaciones">Aplicaciones Prácticas</a></li>
+                </ul>
+            </div>
+
+            <!-- Contenido Principal -->
+            <section id="que-es" class="post-section">
+                <h2>¿Qué es un Grafo?</h2>
+                <p>Un <strong>grafo</strong> es una estructura de datos fundamental en informática que permite representar relaciones entre objetos. Matemáticamente, un grafo es un par ordenado G = (V, E), donde:</p>
+                
+                <div class="definition-box">
+                    <ul>
+                        <li><strong>V</strong> es un conjunto de vértices (también llamados nodos)</li>
+                        <li><strong>E</strong> es un conjunto de aristas (también llamadas ejes o edges) que conectan pares de vértices</li>
+                    </ul>
+                </div>
+
+                <p>Los grafos son estructuras increíblemente versátiles que se utilizan para modelar:</p>
+                <ul class="content-list">
+                    <li>Redes sociales (usuarios como nodos, amistades como aristas)</li>
+                    <li>Redes de computadoras (routers como nodos, conexiones como aristas)</li>
+                    <li>Sistemas de transporte (ciudades como nodos, carreteras como aristas)</li>
+                    <li>Rutas de navegación web (páginas como nodos, hipervínculos como aristas)</li>
+                </ul>
+            </section>
+
+            <section id="conceptos" class="post-section">
+                <h2>Conceptos Clave</h2>
+
+                <h3>1. Vértices o Nodos</h3>
+                <p>Son los elementos principales del grafo. Cada nodo representa una entidad u objeto que queremos modelar. Por ejemplo, en una red social, cada usuario es un nodo.</p>
+
+                <h3>2. Aristas o Ejes (Edges)</h3>
+                <p>Son las conexiones entre vértices. Representan las relaciones entre los nodos. Una arista conecta dos vértices.</p>
+
+                <h3>3. Grado de un Vértice</h3>
+                <p>Es el número de aristas que inciden en un vértice. En grafos dirigidos, se distingue entre:</p>
+                <ul class="content-list">
+                    <li><strong>Grado de entrada (in-degree):</strong> número de aristas que entran</li>
+                    <li><strong>Grado de salida (out-degree):</strong> número de aristas que salen</li>
+                </ul>
+
+                <h3>4. Aristas Ponderadas</h3>
+                <p>Algunas aristas tienen un "peso" o valor asociado, como la distancia entre dos ciudades o el costo de una conexión.</p>
+
+                <div class="code-block">
+                    <p><strong>Ejemplo de arista ponderada:</strong></p>
+                    <pre>Arista: (Ciudad A, Ciudad B, 150km)
+La arista conecta A con B y tiene un peso de 150 km</pre>
+                </div>
+            </section>
+
+            <section id="tipos" class="post-section">
+                <h2>Tipos de Grafos</h2>
+
+                <h3>1. Grafos No Dirigidos</h3>
+                <p>Las aristas no tienen dirección. La relación es bidireccional. Si hay una arista entre A y B, implica que hay conexión en ambas direcciones.</p>
+                <div class="example">
+                    <p><strong>Ejemplo:</strong> Una red de amigos en Facebook. Si A es amigo de B, entonces B es amigo de A.</p>
+                </div>
+
+                <h3>2. Grafos Dirigidos (Dígrafos)</h3>
+                <p>Las aristas tienen una dirección indicada generalmente por una flecha. Una arista va desde un vértice A hacia un vértice B.</p>
+                <div class="example">
+                    <p><strong>Ejemplo:</strong> Un sistema de recomendaciones. A sigue a B, pero B puede no seguir a A.</p>
+                </div>
+
+                <h3>3. Grafos Ponderados</h3>
+                <p>Las aristas tienen asociados valores (pesos) que representan magnitudes como distancia, costo, tiempo, etc.</p>
+                <div class="example">
+                    <p><strong>Ejemplo:</strong> Mapa de ciudades donde las aristas representan distancias en kilómetros.</p>
+                </div>
+
+                <h3>4. Grafos Densos vs Grafos Dispersos</h3>
+                <ul class="content-list">
+                    <li><strong>Grafo Denso:</strong> Tiene muchas aristas, cercano a un grafo completo</li>
+                    <li><strong>Grafo Disperso:</strong> Tiene pocas aristas comparado con el número de vértices</li>
+                </ul>
+
+                <h3>5. Grafo Conexo</h3>
+                <p>Un grafo es conexo si existe un camino entre cualquier par de vértices.</p>
+
+                <h3>6. Grafo Cíclico</h3>
+                <p>Un grafo que contiene al menos un ciclo (un camino que comienza y termina en el mismo vértice).</p>
+            </section>
+
+            <section id="ejemplo" class="post-section">
+                <h2>Ejemplo Visual: Un Grafo No Dirigido</h2>
+                <p>A continuación se muestra un ejemplo de un grafo no dirigido con 5 nodos:</p>
+
+                <div class="graph-container">
+                    <canvas id="graph-canvas" width="500" height="400"></canvas>
+                </div>
+
+                <p><strong>Descripción del grafo:</strong></p>
+                <div class="graph-description">
+                    <p><strong>Vértices:</strong> {A, B, C, D, E}</p>
+                    <p><strong>Aristas:</strong> {(A-B), (A-C), (B-C), (B-D), (C-D), (D-E)}</p>
+                    <p><strong>Grados de los vértices:</strong></p>
+                    <ul>
+                        <li>Grado(A) = 2</li>
+                        <li>Grado(B) = 3</li>
+                        <li>Grado(C) = 3</li>
+                        <li>Grado(D) = 3</li>
+                        <li>Grado(E) = 1</li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+                    <p><strong>Representación en Python:</strong></p>
+                    <pre><code class="language-python">grafo = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C', 'D'],
+    'C': ['A', 'B', 'D'],
+    'D': ['B', 'C', 'E'],
+    'E': ['D']
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="aplicaciones" class="post-section">
+                <h2>Aplicaciones Prácticas</h2>
+                <p>Los grafos son utilizados en una amplia variedad de aplicaciones del mundo real:</p>
+
+                <div class="applications-grid">
+                    <div class="app-card">
+                        <h4>🌐 Redes Sociales</h4>
+                        <p>Modelan conexiones entre usuarios, permitiendo recomendaciones y análisis de influencia.</p>
+                    </div>
+                    <div class="app-card">
+                        <h4>🗺️ Sistemas de GPS</h4>
+                        <p>Utilizan grafos para encontrar las rutas más cortas entre ubicaciones.</p>
+                    </div>
+                    <div class="app-card">
+                        <h4>💼 Análisis de Empresas</h4>
+                        <p>Modelan dependencias entre tareas y recursos en proyectos.</p>
+                    </div>
+                    <div class="app-card">
+                        <h4>🔬 Biología Molecular</h4>
+                        <p>Representan estructuras moleculares y reacciones químicas.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusión -->
+            <section class="conclusion">
+                <h2>Conclusión</h2>
+                <p>Los grafos son estructuras fundamentales que permiten modelar y resolver problemas complejos del mundo real. En este artículo hemos cubierto los conceptos básicos: qué son los nodos, las aristas, los tipos principales de grafos, y sus aplicaciones.</p>
+                <p>En los próximos artículos exploraremos cómo se representan los grafos en memoria y los algoritmos para recorrerlos eficientemente.</p>
+            </section>
+
+            <!-- Navegación entre posts -->
+            <div class="post-navigation">
+                <a href="../index.html" class="btn btn-secondary">← Volver al Blog</a>
+                <a href="post2.html" class="btn btn-primary">Siguiente: Representación de Grafos →</a>
+            </div>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Blog de Grafos. Todos los derechos reservados.</p>
+            <p><strong>Creador:</strong> Fabian Andres Cardona Garcia | <strong>Código:</strong> 93203</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        // Dibujar el grafo de ejemplo
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.getElementById('graph-canvas');
+            const ctx = canvas.getContext('2d');
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = 100;
+
+            // Posiciones de los nodos en un círculo
+            const nodes = [
+                { x: centerX, y: centerY - radius, label: 'A' },
+                { x: centerX + radius * Math.cos(Math.PI / 10), y: centerY - radius * Math.sin(Math.PI / 10), label: 'B' },
+                { x: centerX + radius * Math.cos(-Math.PI / 10), y: centerY - radius * Math.sin(-Math.PI / 10), label: 'C' },
+                { x: centerX + radius * Math.cos(7 * Math.PI / 10), y: centerY - radius * Math.sin(7 * Math.PI / 10), label: 'D' },
+                { x: centerX + radius * Math.cos(-7 * Math.PI / 10), y: centerY - radius * Math.sin(-7 * Math.PI / 10), label: 'E' }
+            ];
+
+            // Aristas: pares de índices
+            const edges = [
+                [0, 1], [0, 2], // A-B, A-C
+                [1, 2], [1, 3], // B-C, B-D
+                [2, 3],         // C-D
+                [3, 4]          // D-E
+            ];
+
+            // Limpiar canvas
+            ctx.fillStyle = '#ecf0f1';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Dibujar aristas
+            ctx.strokeStyle = '#3498db';
+            ctx.lineWidth = 2;
+            edges.forEach(edge => {
+                const [from, to] = edge;
+                ctx.beginPath();
+                ctx.moveTo(nodes[from].x, nodes[from].y);
+                ctx.lineTo(nodes[to].x, nodes[to].y);
+                ctx.stroke();
+            });
+
+            // Dibujar nodos
+            nodes.forEach(node => {
+                // Círculo del nodo
+                ctx.fillStyle = '#e74c3c';
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, 25, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // Borde del nodo
+                ctx.strokeStyle = '#c0392b';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Texto del nodo
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 16px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(node.label, node.x, node.y);
+            });
+        });
+    </script>
+</body>
+</html>

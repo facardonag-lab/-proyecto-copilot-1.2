@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmos de Recorrido en Grafos - Blog Técnico</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="posts.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>📊 Grafos</h1>
+                <p class="subtitle">Blog Técnico sobre Estructura de Datos</p>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index.html" class="nav-link">← Volver al Inicio</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido del Post -->
+    <article class="post-content">
+        <div class="container">
+            <div class="post-header-full">
+                <h1>Algoritmos Fundamentales de Recorrido: BFS y DFS</h1>
+                <div class="post-info">
+                    <span class="date">📅 Diciembre 2025</span>
+                    <span class="author">✍️ Blog Técnico</span>
+                    <span class="read-time">⏱️ 12 minutos</span>
+                </div>
+            </div>
+
+            <!-- Tabla de Contenidos -->
+            <div class="table-of-contents">
+                <h3>Tabla de Contenidos</h3>
+                <ul>
+                    <li><a href="#intro">Introducción</a></li>
+                    <li><a href="#bfs">Búsqueda en Amplitud (BFS)</a></li>
+                    <li><a href="#dfs">Búsqueda en Profundidad (DFS)</a></li>
+                    <li><a href="#comparacion">Comparación BFS vs DFS</a></li>
+                    <li><a href="#aplicaciones">Aplicaciones</a></li>
+                </ul>
+            </div>
+
+            <!-- Contenido Principal -->
+            <section id="intro" class="post-section">
+                <h2>Introducción</h2>
+                <p>El recorrido de un grafo es uno de los problemas fundamentales en ciencias de la computación. Existen dos algoritmos clásicos para recorrer todos los vértices de un grafo:</p>
+
+                <div class="definition-box">
+                    <ul>
+                        <li><strong>BFS (Breadth-First Search):</strong> Búsqueda por amplitud</li>
+                        <li><strong>DFS (Depth-First Search):</strong> Búsqueda por profundidad</li>
+                    </ul>
+                </div>
+
+                <p>Ambos algoritmos tienen complejidad de tiempo O(V + E), pero difieren en el orden en que visitan los vértices y en las estructuras de datos que utilizan.</p>
+            </section>
+
+            <section id="bfs" class="post-section">
+                <h2>Búsqueda en Amplitud (BFS)</h2>
+
+                <h3>¿Qué es BFS?</h3>
+                <p>BFS es un algoritmo que explora el grafo por niveles. Comienza en un vértice raíz y visita todos los vértices a distancia k antes de visitar cualquier vértice a distancia k+1.</p>
+
+                <h3>Características</h3>
+                <ul class="content-list">
+                    <li>Utiliza una <strong>cola (queue)</strong> como estructura de datos auxiliar</li>
+                    <li>Garantiza encontrar el camino más corto en grafos sin pesos</li>
+                    <li>Eficaz para explorar en "amplitud" (nivel por nivel)</li>
+                    <li>Complejidad: O(V + E)</li>
+                </ul>
+
+                <h3>Algoritmo Paso a Paso</h3>
+                <div class="algorithm-box">
+                    <ol>
+                        <li>Marcar el vértice inicial como visitado</li>
+                        <li>Encolarlo en la cola</li>
+                        <li>Mientras la cola no esté vacía:
+                            <ol type="a">
+                                <li>Desencolar un vértice actual</li>
+                                <li>Para cada vecino del vértice actual:
+                                    <ol type="i">
+                                        <li>Si el vecino no ha sido visitado:</li>
+                                        <li>Marcarlo como visitado</li>
+                                        <li>Encolarlo</li>
+                                    </ol>
+                                </li>
+                            </ol>
+                        </li>
+                    </ol>
+                </div>
+
+                <h3>Pseudocódigo</h3>
+                <div class="code-block">
+                    <pre><code>BFS(grafo, inicio):
+    visitados = conjunto vacío
+    cola = Cola()
+    
+    visitados.agregar(inicio)
+    cola.encolar(inicio)
+    
+    mientras cola no esté vacía:
+        vertice = cola.desencolar()
+        procesar(vertice)
+        
+        para cada vecino en grafo[vertice]:
+            si vecino no en visitados:
+                visitados.agregar(vecino)
+                cola.encolar(vecino)</code></pre>
+                </div>
+
+                <h3>Implementación en Python</h3>
+                <div class="code-block">
+                    <pre><code>from collections import deque
+
+def bfs(grafo, inicio):
+    visitados = set()
+    cola = deque([inicio])
+    visitados.add(inicio)
+    resultado = []
+    
+    while cola:
+        vertice = cola.popleft()
+        resultado.append(vertice)
+        
+        for vecino in grafo[vertice]:
+            if vecino not in visitados:
+                visitados.add(vecino)
+                cola.append(vecino)
+    
+    return resultado
+
+# Uso
+grafo = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D'],
+    'C': ['A', 'D', 'E'],
+    'D': ['B', 'C'],
+    'E': ['C']
+}
+
+print(bfs(grafo, 'A'))  # ['A', 'B', 'C', 'D', 'E']</code></pre>
+                </div>
+
+                <h3>Visualización: Orden de Visita en BFS</h3>
+                <div class="example">
+                    <p><strong>Grafo ejemplo:</strong></p>
+                    <pre>    A
+   / \
+  B   C
+ /   / \
+D   E   F
+
+Iniciando en A:
+Nivel 0: A
+Nivel 1: B, C
+Nivel 2: D, E, F
+
+Orden BFS: A → B → C → D → E → F</pre>
+                </div>
+
+                <h3>Ventajas de BFS</h3>
+                <ul class="content-list">
+                    <li><strong>Camino más corto:</strong> Encuentra el camino más corto en grafos sin pesos</li>
+                    <li><strong>Completo:</strong> Encuentra solución si existe</li>
+                    <li><strong>Óptimo:</strong> Garantiza la solución óptima para grafos uniformes</li>
+                </ul>
+
+                <h3>Desventajas de BFS</h3>
+                <ul class="content-list">
+                    <li><strong>Memoria:</strong> Requiere guardar todos los vértices de un nivel en memoria</li>
+                    <li><strong>Grafos infinitos:</strong> Puede no terminar en grafos infinitos</li>
+                </ul>
+            </section>
+
+            <section id="dfs" class="post-section">
+                <h2>Búsqueda en Profundidad (DFS)</h2>
+
+                <h3>¿Qué es DFS?</h3>
+                <p>DFS es un algoritmo que explora el grafo avanzando lo más lejos posible por cada rama antes de retroceder. Utiliza una pila (stack) para explorar en "profundidad".</p>
+
+                <h3>Características</h3>
+                <ul class="content-list">
+                    <li>Utiliza una <strong>pila (stack)</strong> o recursión</li>
+                    <li>Explora profundamente antes de explorar en amplitud</li>
+                    <li>Requiere menos memoria que BFS en algunos casos</li>
+                    <li>Complejidad: O(V + E)</li>
+                </ul>
+
+                <h3>Algoritmo Paso a Paso</h3>
+                <div class="algorithm-box">
+                    <ol>
+                        <li>Marcar el vértice actual como visitado</li>
+                        <li>Para cada vecino del vértice actual:
+                            <ol type="a">
+                                <li>Si el vecino no ha sido visitado:</li>
+                                <li>Realizar DFS recursivo en el vecino</li>
+                            </ol>
+                        </li>
+                    </ol>
+                </div>
+
+                <h3>Pseudocódigo (Versión Recursiva)</h3>
+                <div class="code-block">
+                    <pre><code>DFS(grafo, vertice, visitados):
+    visitados.agregar(vertice)
+    procesar(vertice)
+    
+    para cada vecino en grafo[vertice]:
+        si vecino no en visitados:
+            DFS(grafo, vecino, visitados)</code></pre>
+                </div>
+
+                <h3>Implementación en Python: Versión Recursiva</h3>
+                <div class="code-block">
+                    <pre><code>def dfs_recursivo(grafo, vertice, visitados=None):
+    if visitados is None:
+        visitados = set()
+    
+    visitados.add(vertice)
+    resultado = [vertice]
+    
+    for vecino in grafo[vertice]:
+        if vecino not in visitados:
+            resultado.extend(dfs_recursivo(grafo, vecino, visitados))
+    
+    return resultado
+
+# Uso
+grafo = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D'],
+    'C': ['A', 'D', 'E'],
+    'D': ['B', 'C'],
+    'E': ['C']
+}
+
+print(dfs_recursivo(grafo, 'A'))  # ['A', 'B', 'D', 'C', 'E']</code></pre>
+                </div>
+
+                <h3>Implementación en Python: Versión Iterativa</h3>
+                <div class="code-block">
+                    <pre><code>def dfs_iterativo(grafo, inicio):
+    visitados = set()
+    pila = [inicio]
+    resultado = []
+    
+    while pila:
+        vertice = pila.pop()
+        
+        if vertice not in visitados:
+            visitados.add(vertice)
+            resultado.append(vertice)
+            
+            # Agregar vecinos a la pila (en orden inverso)
+            for vecino in reversed(grafo[vertice]):
+                if vecino not in visitados:
+                    pila.append(vecino)
+    
+    return resultado</code></pre>
+                </div>
+
+                <h3>Visualización: Orden de Visita en DFS</h3>
+                <div class="example">
+                    <p><strong>Mismo grafo, pero con DFS:</strong></p>
+                    <pre>    A
+   / \
+  B   C
+ /   / \
+D   E   F
+
+Iniciando en A (DFS):
+A → B → D (retroceder) → C → E (retroceder) → F
+
+Orden DFS: A → B → D → C → E → F</pre>
+                </div>
+
+                <h3>Ventajas de DFS</h3>
+                <ul class="content-list">
+                    <li><strong>Memoria eficiente:</strong> Requiere menos memoria que BFS en algunos casos</li>
+                    <li><strong>Detección de ciclos:</strong> Eficaz para detectar ciclos</li>
+                    <li><strong>Orden topológico:</strong> Útil para ordenamientos topológicos</li>
+                </ul>
+
+                <h3>Desventajas de DFS</h3>
+                <ul class="content-list">
+                    <li><strong>No encuentra camino más corto:</strong> En general, no encuentra el camino más corto</li>
+                    <li><strong>Puede ser infinito:</strong> En grafos infinitos puede entrar en ciclos infinitos</li>
+                </ul>
+            </section>
+
+            <section id="comparacion" class="post-section">
+                <h2>Comparación: BFS vs DFS</h2>
+
+                <div class="table-responsive">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Aspecto</th>
+                                <th>BFS</th>
+                                <th>DFS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Estructura de Datos</strong></td>
+                                <td>Cola (Queue)</td>
+                                <td>Pila (Stack)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Complejidad Temporal</strong></td>
+                                <td>O(V + E)</td>
+                                <td>O(V + E)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Complejidad Espacial</strong></td>
+                                <td>O(V)</td>
+                                <td>O(h) - h = altura</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Orden de Exploración</strong></td>
+                                <td>Por niveles (amplitud)</td>
+                                <td>Por rama (profundidad)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Camino Más Corto</strong></td>
+                                <td>✓ Sí</td>
+                                <td>✗ No</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Detección de Ciclos</strong></td>
+                                <td>✓ Sí</td>
+                                <td>✓ Sí</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Orden Topológico</strong></td>
+                                <td>✗ No</td>
+                                <td>✓ Sí</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Implementación</strong></td>
+                                <td>Iterativa</td>
+                                <td>Recursiva o Iterativa</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>¿Cuándo usar cada uno?</h3>
+
+                <div class="recommendation-box">
+                    <h4>📌 Usa BFS si:</h4>
+                    <ul>
+                        <li>Necesitas encontrar el camino más corto</li>
+                        <li>Trabajas con grafos por niveles</li>
+                        <li>Quieres exploración por amplitud</li>
+                        <li>Buscas una solución en el menor número de pasos</li>
+                    </ul>
+                </div>
+
+                <div class="recommendation-box">
+                    <h4>📌 Usa DFS si:</h4>
+                    <ul>
+                        <li>Necesitas detectar ciclos</li>
+                        <li>Quieres hacer un ordenamiento topológico</li>
+                        <li>La memoria es limitada</li>
+                        <li>Exploras todas las soluciones posibles</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="aplicaciones" class="post-section">
+                <h2>Aplicaciones Prácticas</h2>
+
+                <h3>Aplicaciones de BFS</h3>
+                <div class="applications-grid">
+                    <div class="app-card">
+                        <h4>📡 Redes y Comunicación</h4>
+                        <p>Encontrar la ruta más corta en redes de computadoras.</p>
+                    </div>
+                    <div class="app-card">
+                        <h4>🗺️ GPS y Navegación</h4>
+                        <p>Calcular la ruta más corta en sistemas de GPS.</p>
+                    </div>
+                    <div class="app-card">
+                        <h4>🎮 Videojuegos</h4>
+                        <p>IA para encontrar caminos óptimos de personajes.</p>
+                    </div>
+                    <div class="app-card">
+                        <h4>🔍 Búsqueda Web</h4>
+                        <p>Web crawlers utilizan BFS para explorar sitios.</p>
+                    </div>
+                </div>
+
+                <h3>Aplicaciones de DFS</h3>
+                <div class="applications-grid">
+                    <div class="app-card">
+                        <h4>🔄 Detección de Ciclos</h4>
+                        <p>Detectar ciclos en grafos dirigidos y no dirigidos.</p>
+                    </div>
+                    <div class="app-card">
+                        <h4>📋 Ordenamiento Topológico</h4>
+                        <p>Ordenar tareas con dependencias (Ej: compiladores).</p>
+                    </div>
+                    <div class="app-card">
+                        <h4>🔓 Escape Rooms y Puzzles</h4>
+                        <p>Exploración exhaustiva de todas las soluciones.</p>
+                    </div>
+                    <div class="app-card">
+                        <h4>🌳 Análisis de Árbol de Sintaxis</h4>
+                        <p>Compiladores utilizan DFS para analizar código.</p>
+                    </div>
+                </div>
+
+                <h3>Ejemplo Práctico: Detectar Ciclo en Grafo Dirigido</h3>
+                <div class="code-block">
+                    <p><strong>Usando DFS:</strong></p>
+                    <pre><code>def tiene_ciclo(grafo):
+    """Detecta ciclo en grafo dirigido usando DFS"""
+    visitados = set()
+    en_recurcion = set()
+    
+    def dfs(vertice):
+        visitados.add(vertice)
+        en_recurcion.add(vertice)
+        
+        for vecino in grafo.get(vertice, []):
+            if vecino not in visitados:
+                if dfs(vecino):
+                    return True
+            elif vecino in en_recurcion:
+                return True  # Ciclo encontrado
+        
+        en_recurcion.remove(vertice)
+        return False
+    
+    for vertice in grafo:
+        if vertice not in visitados:
+            if dfs(vertice):
+                return True
+    
+    return False
+
+# Uso
+grafo_con_ciclo = {
+    'A': ['B'],
+    'B': ['C'],
+    'C': ['A']  # Ciclo: A → B → C → A
+}
+
+print(tiene_ciclo(grafo_con_ciclo))  # True</code></pre>
+                </div>
+
+                <h3>Ejemplo Práctico: Ordenamiento Topológico con DFS</h3>
+                <div class="code-block">
+                    <p><strong>Útil para tareas con dependencias:</strong></p>
+                    <pre><code>def ordenamiento_topologico(grafo):
+    """Retorna el ordenamiento topológico del grafo"""
+    visitados = set()
+    pila = []
+    
+    def dfs(vertice):
+        visitados.add(vertice)
+        
+        for vecino in grafo.get(vertice, []):
+            if vecino not in visitados:
+                dfs(vecino)
+        
+        pila.append(vertice)
+    
+    for vertice in grafo:
+        if vertice not in visitados:
+            dfs(vertice)
+    
+    return list(reversed(pila))
+
+# Ejemplo: Tareas
+# Tarea D depende de A y B
+# Tarea C depende de D
+tareas = {
+    'A': [],
+    'B': [],
+    'C': ['D'],
+    'D': ['A', 'B']
+}
+
+print(ordenamiento_topologico(tareas))  # ['A', 'B', 'D', 'C']</code></pre>
+                </div>
+            </section>
+
+            <!-- Conclusión -->
+            <section class="conclusion">
+                <h2>Conclusión</h2>
+                <p>BFS y DFS son dos algoritmos fundamentales para recorrer grafos, cada uno con sus propias ventajas y casos de uso. BFS destaca en encontrar caminos cortos, mientras que DFS es excelente para detección de ciclos y ordenamientos topológicos.</p>
+                <p>Dominar estos algoritmos es esencial para resolver problemas complejos en ciencias de la computación y desarrollar aplicaciones eficientes.</p>
+            </section>
+
+            <!-- Navegación entre posts -->
+            <div class="post-navigation">
+                <a href="post2.html" class="btn btn-secondary">← Anterior: Representación de Grafos</a>
+                <a href="../index.html" class="btn btn-primary">Volver al Blog →</a>
+            </div>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Blog de Grafos. Todos los derechos reservados.</p>
+            <p><strong>Creador:</strong> Fabian Andres Cardona Garcia | <strong>Código:</strong> 93203</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>

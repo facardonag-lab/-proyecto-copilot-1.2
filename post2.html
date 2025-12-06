@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Representación de Grafos - Blog Técnico</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="posts.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>📊 Grafos</h1>
+                <p class="subtitle">Blog Técnico sobre Estructura de Datos</p>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index.html" class="nav-link">← Volver al Inicio</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido del Post -->
+    <article class="post-content">
+        <div class="container">
+            <div class="post-header-full">
+                <h1>Representación de Grafos</h1>
+                <div class="post-info">
+                    <span class="date">📅 Diciembre 2025</span>
+                    <span class="author">✍️ Blog Técnico</span>
+                    <span class="read-time">⏱️ 10 minutos</span>
+                </div>
+            </div>
+
+            <!-- Tabla de Contenidos -->
+            <div class="table-of-contents">
+                <h3>Tabla de Contenidos</h3>
+                <ul>
+                    <li><a href="#intro">Introducción</a></li>
+                    <li><a href="#adyacencia-lista">Lista de Adyacencia</a></li>
+                    <li><a href="#adyacencia-matriz">Matriz de Adyacencia</a></li>
+                    <li><a href="#comparacion">Comparación</a></li>
+                    <li><a href="#ejemplos">Ejemplos Prácticos</a></li>
+                </ul>
+            </div>
+
+            <!-- Contenido Principal -->
+            <section id="intro" class="post-section">
+                <h2>Introducción</h2>
+                <p>Uno de los aspectos más importantes en la programación de grafos es cómo almacenarlos en memoria. Existen dos formas principales de representar un grafo:</p>
+
+                <div class="definition-box">
+                    <ol>
+                        <li><strong>Lista de Adyacencia</strong> - Eficiente en espacio para grafos dispersos</li>
+                        <li><strong>Matriz de Adyacencia</strong> - Eficiente en tiempo para consultar conexiones</li>
+                    </ol>
+                </div>
+
+                <p>Cada representación tiene ventajas y desventajas, y la elección depende del tipo de operaciones que realicemos y del espacio disponible.</p>
+            </section>
+
+            <section id="adyacencia-lista" class="post-section">
+                <h2>Lista de Adyacencia</h2>
+
+                <h3>¿Qué es?</h3>
+                <p>Una lista de adyacencia es una estructura donde se mantiene una lista (o vector dinámico) para cada vértice del grafo. Cada lista contiene todos los vértices adyacentes a ese vértice.</p>
+
+                <h3>Ventajas</h3>
+                <ul class="content-list">
+                    <li><strong>Eficiente en espacio:</strong> Solo ocupa O(V + E) de memoria</li>
+                    <li><strong>Ideal para grafos dispersos:</strong> Si hay pocos aristas respecto a vértices</li>
+                    <li><strong>Iteración rápida:</strong> Navegar por los vecinos es muy rápido</li>
+                </ul>
+
+                <h3>Desventajas</h3>
+                <ul class="content-list">
+                    <li><strong>Consulta lenta:</strong> Verificar si existe una arista requiere buscar en la lista O(V)</li>
+                    <li><strong>Acceso no directo:</strong> No acceso directo en O(1) a una arista específica</li>
+                </ul>
+
+                <h3>Ejemplo: Grafo No Dirigido</h3>
+                <div class="code-block">
+                    <p><strong>Representación en Python:</strong></p>
+                    <pre><code>grafo = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C', 'D'],
+    'C': ['A', 'B', 'D'],
+    'D': ['B', 'C', 'E'],
+    'E': ['D']
+}</code></pre>
+                </div>
+
+                <h3>Ejemplo: Grafo Dirigido</h3>
+                <div class="code-block">
+                    <p><strong>Representación en Python:</strong></p>
+                    <pre><code>grafo_dirigido = {
+    'A': ['B', 'C'],
+    'B': ['C', 'D'],
+    'C': ['D'],
+    'D': ['E'],
+    'E': []
+}</code></pre>
+                </div>
+
+                <h3>Ejemplo: Grafo Ponderado</h3>
+                <div class="code-block">
+                    <p><strong>Representación en Python (con pesos):</strong></p>
+                    <pre><code>grafo_ponderado = {
+    'A': [('B', 4), ('C', 2)],
+    'B': [('A', 4), ('C', 1), ('D', 5)],
+    'C': [('A', 2), ('B', 1), ('D', 8)],
+    'D': [('B', 5), ('C', 8), ('E', 2)],
+    'E': [('D', 2)]
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="adyacencia-matriz" class="post-section">
+                <h2>Matriz de Adyacencia</h2>
+
+                <h3>¿Qué es?</h3>
+                <p>Una matriz de adyacencia es una matriz cuadrada de dimensión V×V (donde V es el número de vértices). Cada celda M[i][j] contiene:</p>
+                <ul class="content-list">
+                    <li>1 (o true) si existe una arista entre los vértices i y j</li>
+                    <li>0 (o false) si no existe arista</li>
+                    <li>Un valor (peso) si es un grafo ponderado</li>
+                </ul>
+
+                <h3>Ventajas</h3>
+                <ul class="content-list">
+                    <li><strong>Consulta rápida:</strong> Verificar si existe una arista toma O(1)</li>
+                    <li><strong>Acceso directo:</strong> Acceso inmediato a cualquier arista</li>
+                    <li><strong>Operaciones matriciales:</strong> Se pueden usar algoritmos de álgebra lineal</li>
+                </ul>
+
+                <h3>Desventajas</h3>
+                <ul class="content-list">
+                    <li><strong>Uso de espacio:</strong> Requiere O(V²) memoria, ineficiente para grafos dispersos</li>
+                    <li><strong>Iteración lenta:</strong> Navegar todos los vecinos requiere revisar toda la fila O(V)</li>
+                </ul>
+
+                <h3>Ejemplo: Grafo No Dirigido</h3>
+                <div class="table-responsive">
+                    <table class="matrix-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>A</th>
+                                <th>B</th>
+                                <th>C</th>
+                                <th>D</th>
+                                <th>E</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>A</strong></td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>B</strong></td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>C</strong></td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>D</strong></td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td><strong>E</strong></td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Ejemplo: Grafo Dirigido</h3>
+                <div class="table-responsive">
+                    <table class="matrix-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>A</th>
+                                <th>B</th>
+                                <th>C</th>
+                                <th>D</th>
+                                <th>E</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>A</strong></td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>B</strong></td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>C</strong></td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>D</strong></td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td><strong>E</strong></td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Representación en Python</h3>
+                <div class="code-block">
+                    <p><strong>Matriz de Adyacencia:</strong></p>
+                    <pre><code>matriz = [
+    [0, 1, 1, 0, 0],  # A
+    [1, 0, 1, 1, 0],  # B
+    [1, 1, 0, 1, 0],  # C
+    [0, 1, 1, 0, 1],  # D
+    [0, 0, 0, 1, 0]   # E
+]</code></pre>
+                </div>
+
+                <h3>Grafo Ponderado</h3>
+                <div class="code-block">
+                    <p><strong>Con pesos en las aristas:</strong></p>
+                    <pre><code>matriz_ponderada = [
+    [0, 4, 2, 0, 0],
+    [4, 0, 1, 5, 0],
+    [2, 1, 0, 8, 0],
+    [0, 5, 8, 0, 2],
+    [0, 0, 0, 2, 0]
+]</code></pre>
+                </div>
+            </section>
+
+            <section id="comparacion" class="post-section">
+                <h2>Comparación de Representaciones</h2>
+
+                <h3>Complejidad de Operaciones</h3>
+                <div class="table-responsive">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Operación</th>
+                                <th>Lista de Adyacencia</th>
+                                <th>Matriz de Adyacencia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Insertar vértice</td>
+                                <td>O(1)</td>
+                                <td>O(V²)</td>
+                            </tr>
+                            <tr>
+                                <td>Eliminar vértice</td>
+                                <td>O(V + E)</td>
+                                <td>O(V²)</td>
+                            </tr>
+                            <tr>
+                                <td>Insertar arista</td>
+                                <td>O(1)</td>
+                                <td>O(1)</td>
+                            </tr>
+                            <tr>
+                                <td>Eliminar arista</td>
+                                <td>O(E/V)</td>
+                                <td>O(1)</td>
+                            </tr>
+                            <tr>
+                                <td>Verificar arista</td>
+                                <td>O(V)</td>
+                                <td>O(1)</td>
+                            </tr>
+                            <tr>
+                                <td>Encontrar vecinos</td>
+                                <td>O(grado)</td>
+                                <td>O(V)</td>
+                            </tr>
+                            <tr>
+                                <td>Espacio</td>
+                                <td>O(V + E)</td>
+                                <td>O(V²)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>¿Cuándo usar cada una?</h3>
+
+                <div class="recommendation-box">
+                    <h4>📌 Usa Lista de Adyacencia si:</h4>
+                    <ul>
+                        <li>El grafo es disperso (pocas aristas)</li>
+                        <li>Necesitas iterar sobre los vecinos frecuentemente</li>
+                        <li>El espacio en memoria es limitado</li>
+                        <li>Realizas operaciones de inserción/eliminación de vértices</li>
+                    </ul>
+                </div>
+
+                <div class="recommendation-box">
+                    <h4>📌 Usa Matriz de Adyacencia si:</h4>
+                    <ul>
+                        <li>El grafo es denso (muchas aristas)</li>
+                        <li>Necesitas verificar rápidamente si existe una arista</li>
+                        <li>Usarás algoritmos que requieren acceso O(1)</li>
+                        <li>Necesitas operaciones matriciales</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="ejemplos" class="post-section">
+                <h2>Ejemplos Prácticos de Código</h2>
+
+                <h3>Implementación en Python: Lista de Adyacencia</h3>
+                <div class="code-block">
+                    <pre><code>class Grafo:
+    def __init__(self):
+        self.vertices = {}
+    
+    def agregar_vertice(self, v):
+        if v not in self.vertices:
+            self.vertices[v] = []
+    
+    def agregar_arista(self, u, v):
+        if u in self.vertices and v in self.vertices:
+            self.vertices[u].append(v)
+            self.vertices[v].append(u)  # Para grafo no dirigido
+    
+    def vecinos(self, v):
+        return self.vertices.get(v, [])
+    
+    def existe_arista(self, u, v):
+        return v in self.vertices.get(u, [])
+
+# Uso
+g = Grafo()
+for nodo in ['A', 'B', 'C', 'D', 'E']:
+    g.agregar_vertice(nodo)
+g.agregar_arista('A', 'B')
+g.agregar_arista('A', 'C')</code></pre>
+                </div>
+
+                <h3>Implementación en Python: Matriz de Adyacencia</h3>
+                <div class="code-block">
+                    <pre><code>class GrafoMatriz:
+    def __init__(self, n):
+        self.n = n
+        self.matriz = [[0] * n for _ in range(n)]
+        self.vertices = {}
+        self.indice = 0
+    
+    def agregar_vertice(self, v):
+        if v not in self.vertices:
+            self.vertices[v] = self.indice
+            self.indice += 1
+    
+    def agregar_arista(self, u, v):
+        i = self.vertices[u]
+        j = self.vertices[v]
+        self.matriz[i][j] = 1
+        self.matriz[j][i] = 1  # Para grafo no dirigido
+    
+    def existe_arista(self, u, v):
+        i = self.vertices[u]
+        j = self.vertices[v]
+        return self.matriz[i][j] == 1
+
+# Uso
+g = GrafoMatriz(5)
+for nodo in ['A', 'B', 'C', 'D', 'E']:
+    g.agregar_vertice(nodo)
+g.agregar_arista('A', 'B')</code></pre>
+                </div>
+            </section>
+
+            <!-- Conclusión -->
+            <section class="conclusion">
+                <h2>Conclusión</h2>
+                <p>La representación de un grafo es una decisión crucial que afecta el desempeño de nuestro programa. Las listas de adyacencia son ideales para grafos dispersos, mientras que las matrices de adyacencia brillan en grafos densos y cuando necesitamos acceso rápido a aristas específicas.</p>
+                <p>En el próximo artículo exploraremos cómo recorrer estos grafos utilizando los algoritmos BFS y DFS.</p>
+            </section>
+
+            <!-- Navegación entre posts -->
+            <div class="post-navigation">
+                <a href="post1.html" class="btn btn-secondary">← Anterior: Introducción a Grafos</a>
+                <a href="post3.html" class="btn btn-primary">Siguiente: Algoritmos de Recorrido →</a>
+            </div>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Blog de Grafos. Todos los derechos reservados.</p>
+            <p><strong>Creador:</strong> Fabian Andres Cardona Garcia | <strong>Código:</strong> 93203</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>
